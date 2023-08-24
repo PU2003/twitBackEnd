@@ -1,12 +1,13 @@
 package com.twitter.controllers;
 
+import com.twitter.exceptions.EmailAlreadyTakenException;
 import com.twitter.models.ApplicationUser;
+import com.twitter.models.RegistrationObject;
 import com.twitter.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,9 +19,13 @@ public class AuthenticationController {
     public AuthenticationController(UserService userService){
         this.userService = userService;
     }
+    @ExceptionHandler({EmailAlreadyTakenException.class})
+    public ResponseEntity<String> handleEmailTaken(){
+        return new ResponseEntity<String>("The email you provided is already in use" , HttpStatus.CONFLICT);
+    }
 
     @PostMapping("/register")
-    public ApplicationUser registerUser(@RequestBody ApplicationUser user){
-        return userService.registerUser(user);
+    public  ResponseEntity<String> registerUser(@RequestBody RegistrationObject ro){
+        return userService.registerUser(ro);
     }
 }
