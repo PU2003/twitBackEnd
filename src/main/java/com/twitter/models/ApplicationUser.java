@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Table(name="users")
 public class ApplicationUser {
 
@@ -48,5 +47,14 @@ public class ApplicationUser {
     )
     private Set<Role> authorities;
 
+    private boolean enabled;
 
+    @Column(nullable = true)
+    @JsonIgnore
+    private Long verification;
+
+    public ApplicationUser(){
+        this.authorities = new HashSet<>();
+        this.enabled = false;
+    }
 }
