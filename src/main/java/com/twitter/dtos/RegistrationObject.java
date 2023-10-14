@@ -1,4 +1,4 @@
-package com.twitter.models;
+package com.twitter.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -13,6 +13,7 @@ public class RegistrationObject {
     private String firstName;
     private String lastName;
     private String email;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dob;
+
 }
