@@ -8,8 +8,10 @@ import com.twitter.models.Post;
 import com.twitter.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,11 @@ public class PostController {
     @ExceptionHandler({PostDoesNotExistException.class})
     public ResponseEntity<String> handlePostDoesNotExist(){
         return new ResponseEntity<String>("Post does not exist",HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping(value = "/media",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Post createMediaPost(@RequestPart("post") String post, @RequestPart("media")List<MultipartFile> files){
+        return postService.createMediaPost(post, files);
     }
 
     @GetMapping("/id/{id}")

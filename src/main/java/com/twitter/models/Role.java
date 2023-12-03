@@ -16,5 +16,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="role_id")
     private Integer roleId;
+    @Column(unique = true)
     private String authority;
+
+    public Role(String user) {
+        this.authority = user;
+    }
 }

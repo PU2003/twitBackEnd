@@ -20,7 +20,7 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
     private static final File DIRECTORY = new File("/home/user2/Desktop/TwitterBackend/twitter-backend/img");
-    private static final String URL = "http:://localhost::8081/images/";
+    private static final String URL = "http:://localhost::8082/images/";
 
     @Autowired
     public ImageService(ImageRepository imageRepository){
